@@ -4,11 +4,11 @@ namespace Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /** 
- * @Entity (repositoryClass="Repositories\Account") 
- * @Table(name="accounts") 
+ * @Entity (repositoryClass="Repositories\Rank")
+ * @Table(name="ranks") 
  * @HasLifecycleCallbacks
  */
-class Account
+class Rank
 {
     /**
      * @Id @Column(type="integer")
@@ -16,129 +16,55 @@ class Account
      */
     private $id;
 
-    /** @Column(type="string", length=255) */
-    private $username;
-    
-    /** @Column(type="string", length=255) */
-    private $email;
-
-    /** @Column(type="string", length=32) */
-    private $password;
-
-    /** @Column(type="string", length=10) */
-    private $zip;
-
-    /** @Column(type="datetime") */
-    private $created;
-
-    /** @Column(type="datetime") */
-    private $updated;
+    /** @Column(type="integer") */
+    private $rank;
 
     /**
-     * @ManyToMany(targetEntity="Game", inversedBy="accounts")
-     * @JoinTable(name="accounts_games",
-     *      joinColumns={@JoinColumn(name="account_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="game_id", referencedColumnName="id")}
-     *      )
+     * @ManyToOne(targetEntity="Game", inversedBy="ranks")
+     * @JoinColumn(name="game_id", referencedColumnName="id")
      */
+    private $game;
+
+    /** @Column(type="datetime") */
+    private $created;    
     
-    private $games;
-
-    public function __construct()
-    {
-
+    public function __construct() {
       $this->games = new ArrayCollection();
+    }
 
-      $this->created = $this->updated = new \DateTime("now");
-    }
-   
-    /**
-     * Add game to account.
-     * @param Game $game
-     */
-    public function addGame(Game $game)
+    public function setGame($game)
     {
-        $game->addAccount($this);
-        $this->games[] = $game;
-    }
+      return $this->game = $game;
+    }      
     
-    /**
-     * Retrieve account's associated games.
-     */
-    public function getGames()
+    public function getGame()
     {
-      return $this->games;
-    }
-
-    /**
-     * @PreUpdate
-     */
-    public function updated()
-    {
-        $this->updated = new \DateTime("now");
-    }
-
-    /**
-     * Retrieve account id
-     */
+      return $this->game;
+    }    
+    
     public function getId()
     {
-        return $this->id;
+      return $this->id;
     }
 
-    public function getUsername()
+    public function getRank()
     {
-        return $this->username;
+      return $this->rank;
     }
 
-    public function setUsername($username)
+    public function setRank($rank)
     {
-        $this->username = $username;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = md5($password);
-    }
-
-    public function getZip()
-    {
-        return $this->zip;
-    }
-
-    public function setZip($zip)
-    {
-        $this->zip = $zip;
+      $this->rank = $rank;
     }
 
     public function getCreated()
     {
-        return $this->created;
+      return $this->created;
     }
 
     public function setCreated($created)
     {
-        $this->created = $created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
+      $this->created = $created;
     }
 
 }
