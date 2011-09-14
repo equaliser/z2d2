@@ -30,9 +30,9 @@ You'll need to pay a bit more attention regarding installing Doctrine. z2d2 is o
 
 2. Copy the following three directories into a directory named Doctrine found in the z2d2 `library` directory:
 
-    lib/Doctrine/ORM
-    lib/vendor/doctrine-common/lib/Doctrine/Common
-    lib/vendor/doctrine-dbal/lib/Doctrine/DBAL
+   *  lib/Doctrine/ORM
+   *  lib/vendor/doctrine-common/lib/Doctrine/Common
+   *  lib/vendor/doctrine-dbal/lib/Doctrine/DBAL
 
 3. Copy the following directory into the z2d2 `library` directory:
 
@@ -42,11 +42,11 @@ When done, your `library` directory should look like this:
 
     library/
       Doctrine/
-      Common/
-      DBAL/
-      ORM/
-    Symfony/
-    WJG/
+        Common/
+        DBAL/
+        ORM/
+      Symfony/
+      WJG/
 
 You'll also need to modify the Doctrine database connection parameters and entity/proxy/repository paths. These parameters are all found in the `application.ini.example` file. Rename this file to `application.ini` before making your changes.
 
